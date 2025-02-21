@@ -1,0 +1,21 @@
+101,진짜 쓰는 실무 엑셀,전진권,false,null
+102,Do it! 점프 투 파이썬,박응용,false,null
+103,챗GPT 교사 마스터 플랜,한민철,false,null
+104,회사는 엑셀을 가르쳐주지 않아요,박성희,false,null
+105,혼자 공부하는 파이썬,윤인성,false,null
+106,회사에서 바로 통하는 실무 엑셀,전미진,false,null
+107,파이썬 텍스트 코딩 워크북,정재웅,false,null
+108,혼자서 공부하는 머신러닝+딥러닝,박해선,false,null
+109,혼자서 공부하는 컴퓨터구조,강민철,false,null
+110,진짜 쓰는 프리미어 프로 영상 편집,조블리,false,null
+111,혼자 공부하는 C 언어,서현우,false,null
+112,코딩 자율학습 나도코딩의 파이썬 입문,나도코딩,false,null
+113,AI가 바꾸는 학교 수업 챗GPT 교육활용,오창근,false,null
+114,쉽게 풀어쓴 C언어 Express,천인국,false,null
+115,진짜 챗GPT 활용법,김준성,false,null
+116,가상 면접 사례로 배우는 대규모 시스템 설계 기초,이병준,false,null
+117,클린 코드,박재호,false,null
+118,난생 처음 파이썬 프로그래밍,우재남,false,null
+119,자바의 정석,남궁성,false,null
+120,이것이 자바다,신용권,false,null
+121,헤드 퍼스트 자바,서환수,false,null
