@@ -1,9 +1,5 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import exception.LibraryException;
@@ -86,6 +82,37 @@ public class LibraryApp {
 	}
 	
 	public void 검색() {
+		System.out.println("[책 검색]");
+		
+		System.out.println("### 전체 도서 정보");
+		List<Book> allBooks = service.getAllBooks();
+		
+		System.out.println("-------------------------------------");
+		System.out.println("번호\t제목");
+		System.out.println("-------------------------------------");
+		for (Book book : allBooks) {
+			System.out.println(book.getNo() + "\t" + book.getTitle());
+		}		
+		System.out.println("-------------------------------------");
+		
+		System.out.println();
+		System.out.println("### 검색어를 입력하세요.");
+		System.out.print("검색어 입력: ");
+		String keyword = keyboard.readString();
+		List<Book> searchedBooks = service.searchBooks(keyword);
+		
+		System.out.println("### 검색된 책 정보");
+		System.out.println("-------------------------------------");
+		System.out.println("번호\t제목");
+		System.out.println("-------------------------------------");
+		if (searchedBooks.isEmpty()) {
+			System.out.println("검색된 책이 없습니다.");
+		} else {
+			for (Book book : searchedBooks) {				
+				System.out.println(book.getNo() + "\t" + book.getTitle());
+			}
+		}
+		System.out.println("-------------------------------------");		
 		
 	}	
 	
@@ -142,12 +169,97 @@ public class LibraryApp {
 	public void 책관리() {
 		
 	}	
+	
 	public void 회원관리() {
 		
 	}	
+	
 	public void 대출및반납() {
+		while (true) {
+			System.out.println("[대출 및 반납 메뉴]");
+			System.out.println("------------------------------");
+			System.out.println("1. 대출현황 조회");
+			System.out.println("2. 대출");
+			System.out.println("3. 반납");
+			System.out.println("0. 메인메뉴로 가기");
+			System.out.println("------------------------------");
+			System.out.println();
+			
+			System.out.print("메뉴 선택: ");
+			int menuNo = keyboard.readInt();
+			
+			if (menuNo == 1) {
+				대출현황조회();
+			} else if (menuNo == 2) {
+				대출();
+			} else if (menuNo == 3) {
+				반납();
+			} else if (menuNo == 0) {
+				System.out.println("### 메인 메뉴로 돌아갑니다.");
+				break;
+			}
+		}
+	}
+	
+	public void 대출현황조회() {
+		System.out.println("[대출 현황 조회]");
 		
-	}	
+		if (loginedMember == null) {
+			throw new LibraryException("대출현황 조회는 로그인 후 이용가능합니다.");
+		}
+		// 현재 로그인한 회원의 아이디를 조회한다.
+		String memberId = loginedMember.getId();
+		
+		// 회원아이디를 전달해서 대출중인 책정보를 반환받는다.
+		List<Book> borrowedBooks = service.getMyBorrowedBooks(memberId);
+		
+		System.out.println("### 현재 대출중인 책 정보");
+		
+		System.out.println("-------------------------------------");
+		System.out.println("번호\t제목");
+		System.out.println("-------------------------------------");
+		if (borrowedBooks.isEmpty()) {
+			System.out.println("### 현재 대출중인 책이 없습니다.");
+		} else {
+			for (Book book : borrowedBooks) {
+				System.out.println(book.getNo() + "\t" + book.getTitle());
+			}
+		}
+		System.out.println("-------------------------------------");
+		
+	}
+	
+	public void 대출() {
+		System.out.println("[대출]");
+		
+		System.out.println("### 대출할 책번호를 입력하세요.");
+		System.out.print("책번호: ");
+		int bookNo = keyboard.readInt();
+		
+		// 현재 로그인한 회원의 아이디를 조회한다.
+		String memberId = loginedMember.getId();
+		
+		// 책번호, 회원아이디를 전달해서 대출을 요청한다.
+		service.borrowBook(bookNo, memberId);
+		
+		System.out.println("### 책 대출이 완료되었습니다.");
+	}
+	
+	public void 반납() {
+		System.out.println("[반납]");
+		
+		System.out.println("### 반납할 책번호를 입력하세요.");
+		System.out.print("책번호: ");
+		int bookNo = keyboard.readInt();
+		
+		// 현재 로그인한 회원의 아이디를 조회한다.
+		String memberId = loginedMember.getId();
+		
+		service.returnBook(bookNo, memberId);
+		
+		System.out.println("### 반납이 완료되었습니다.");
+	}
+	
 	public void 프로그램종료() {
 		System.out.println("### 프로그램을 종료합니다.");
 		// 회원정보, 책정보를 파일에 저장시킨다.
